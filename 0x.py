@@ -1,6 +1,7 @@
 from .. import loader, utils  # pylint: disable=relative-beyond-top-level
 import logging
 from requests import post
+import io
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +25,11 @@ class x0Mod(loader.Module):
 			return
 		media = reply.media
 		if not media:
-			file = reply.raw_text
+			file = io.BytesIO(bytes(reply.raw_text, "utf-8"))
+			file.name = "txt.txt"
 		else:
-			file = await self.client.download_file(media)
+			file = io.BytesIO(await self.client.download_file(media))
+			file.name = reply.file.name if reply.file.name else  reply.file.id+reply.file.ext
 		try:
 			x0at = post('https://x0.at', files={'file': file})
 		except ConnectionError as e:
