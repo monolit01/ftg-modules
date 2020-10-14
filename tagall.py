@@ -3,7 +3,6 @@ import logging
 
 
 logger = logging.getLogger(__name__)
-
 def register(cb):
 	cb(TagallMod())
 
