@@ -1,3 +1,5 @@
+# requires: moviepy
+
 from .. import loader, utils  # pylint: disable=relative-beyond-top-level
 from PIL import Image, ImageDraw, ImageOps, ImageFilter
 import io
