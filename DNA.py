@@ -1,5 +1,4 @@
-# requires: pillow
-# requires: wand
+# requires: pillow wand
 from .. import loader, utils
 import io
 from telethon.tl.types import DocumentAttributeFilename
