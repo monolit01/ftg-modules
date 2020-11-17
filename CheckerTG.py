@@ -31,7 +31,7 @@ class CheckerTGMod(loader.Module):
 				await m.edit("<b>Err</b>")
 				return
 		else:
-			await m.edit("А кого пробивать?")
+			await m.edit("[DEK_API] А кого чекать?")
 			return
 		await m.edit(self.strings['check'])
 		await m.edit(f"[DEK_API] Ответ API: <code>{requests.get('http://d4n13l3k00.ml/api/checkTgId?uid=' + user).json()['data']}</code>")
