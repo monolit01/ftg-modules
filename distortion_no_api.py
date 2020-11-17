@@ -1,3 +1,4 @@
+#requires: wand
 import io, random, glob, os
 from PIL import Image
 from telethon.tl.types import DocumentAttributeFilename
