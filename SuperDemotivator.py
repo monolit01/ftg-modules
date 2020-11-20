@@ -167,5 +167,5 @@ async def demotion(font_bytes, bytes_image, text, type):
 	output = await joiner(text, main)
 	return output
 
-font_bytes = requests.get("").content
+font_bytes = requests.get("https://github.com/monolit01/fonts/raw/main/MiLanProVF.ttf").content
 #######################
