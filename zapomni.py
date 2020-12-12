@@ -27,7 +27,7 @@ class ZapomniMod(loader.Module):
 	async def zcmd(self, message):
 		""".z <reply to user/text>"""
 		
-		ufr = requests.get("http://d4n13l3k00.ml/Modules/zfont.ttf")
+		ufr = requests.get("https://raw.githubusercontent.com/monolit/fonts/main/MiLanProVF.ttf")
 		f = ufr.content
 		
 		reply = await message.get_reply_message()
