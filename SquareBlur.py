@@ -26,8 +26,8 @@ class SquareBlurMod(loader.Module):
 		bg = bg.resize((_max, _max))
 		bg.paste(im, ((_max-w)//2, (_max-h)//2))
 		img = io.BytesIO()
-		img.name = "im.png"
-		bg.save(img)
+		img.name = "im.jpg"
+		bg.save(img, quality=100)
 		img.seek(0) 
 		await reply.reply(file=img, force_document=True)
 		await message.delete()
