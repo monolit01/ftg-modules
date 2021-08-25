@@ -29,5 +29,5 @@ class SquareBlurMod(loader.Module):
 		img.name = "im.png"
 		bg.save(img)
 		img.seek(0) 
-		await reply.reply(file=img)
+		await reply.reply(file=img, force_document=True)
 		await message.delete()
