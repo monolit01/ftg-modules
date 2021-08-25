@@ -15,7 +15,7 @@ class SquareBlurMod(loader.Module):
 			return
 		im = io.BytesIO()
 		await reply.download_media(im)
-		im = Image.open(im)
+		im = Image.open(im).convert('RGB')
 		w, h = im.size
 		if w == h:
 			await message.edit("<b>Ты за меня придурка не держи!</b>")
@@ -26,7 +26,7 @@ class SquareBlurMod(loader.Module):
 		bg = bg.resize((_max, _max))
 		bg.paste(im, ((_max-w)//2, (_max-h)//2))
 		img = io.BytesIO()
-		img.name = "im.jpg"
+		img.name='im.jpg'
 		bg.save(img, quality=100)
 		img.seek(0) 
 		await reply.reply(file=img, force_document=True)
