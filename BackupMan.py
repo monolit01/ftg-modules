@@ -41,7 +41,7 @@ class BackupManMod(loader.Module):
         modules = self._db.get("friendly-telegram.modules.loader", "loaded_modules", [])
         txt = io.BytesIO("\n".join(modules).encode('utf-8'))
         txt.name = "BackupMan-{}.bkm".format(str((await m.client.get_me()).id))
-        await m.client.send_file(m.to_id, txt, caption=f"<b>[BackupMan]</b> <i>Бэкап модулей</i>\n<i>Модулей:</i> <code>{len(modules)}</code>
+        await m.client.send_file(m.to_id, txt, caption=f"<b>[BackupMan]</b> <i>Бэкап модулей</i>\n<i>Модулей:</i> <code>{len(modules)}</code>")
         await m.delete()
     
     @loader.owner
