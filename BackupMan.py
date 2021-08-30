@@ -71,7 +71,7 @@ class BackupManMod(loader.Module):
         modules = self._db.get("friendly-telegram.modules.notes", "notes", {})
         txt = io.BytesIO(str(modules).encode('utf-8'))
         txt.name = "BackupMan-{}.bkn".format(str((await m.client.get_me()).id))
-        await m.client.send_file(m.to_id, txt, caption=f"<b>[BackupMan]</b> <i>Бэкап заметок</i>\n<i>Заметок:</i> <code>{len(modules)}</code>\n<i>Для загрузки бэкапа используй модуль:</i>\n<code>.dlmod https://d4n13l3k00.ru/modules/BackupMan.py</code>")
+        await m.client.send_file(m.to_id, txt, caption=f"<b>[BackupMan]</b> <i>Бэкап заметок</i>\n<i>Заметок:</i> <code>{len(modules)}</code>")
         await m.delete()
     
 
