@@ -34,7 +34,7 @@ class ExecutorMod(loader.Module):
                "no_note": "<b>Notexec not found</b>",
                "execute_fail": ("<b>Failed to execute expression:</b>\n<code>{}</code>")
                }
-    async def notexeccmd(self, message):
+    async def nxcmd(self, message):
         """Gets the note specified"""
         args = utils.get_args(message)
         if not args:
