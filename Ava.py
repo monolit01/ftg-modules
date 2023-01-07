@@ -1,33 +1,28 @@
 from telethon import functions, types
 from .. import loader, utils
-import io
-import os
-def register(cb):
-    cb(AvaMod())
+import io, os
+from PIL import Image
+def register(cb): cb(AvaMod())
 class AvaMod(loader.Module):
     """Установка/удаление аватарок через команды"""
     strings = {'name': 'Ava'}
-    def __init__(self):
-        self.name = self.strings['name']
-        self._me = None
-        self._ratelimit = []
-    async def client_ready(self, client, db):
-        self._db = db
-        self._client = client
-        self.me = await client.get_me()
+    def __init__(self): self.name = self.strings['name']
+    async def client_ready(self, client, db): pass
     async def avacmd(self, message):
         'Установить аватарку <reply to image>'
         reply = await message.get_reply_message()
-        try:
-            reply.media.photo
-        except:
-            await message.edit("ДАЙ МНЕ БЛЯТЬ ФОТО СУКА ТЫ ЕБАНАЯ")
-            return
+        try: reply.media
+        except: return await message.edit("ALO нет медиа/>?")
         await message.edit("Качаем фото")
         photo = await message.client.download_media(message=reply.photo)
         up = await message.client.upload_file(photo)
         await message.edit("Ставим аву")
-        await message.client(functions.photos.UploadProfilePhotoRequest(up))
+        up = await make_square(reply)
+        await message.client(
+            functions.photos.UploadProfilePhotoRequest(
+                await message.client.upload_file(up)
+                )
+            )
         await message.edit("Ава установлена")
         os.remove(photo)
     async def delavacmd(self, message):
@@ -48,5 +43,17 @@ class AvaMod(loader.Module):
             await message.edit("Аватарки удалены")
         else:
             await message.edit("ТЫ ЕБЛАН У ТЯ НЕТ АВАТАРКОК!!! КАКОЙ НАХУЙ УДАЛЯТЬ")
-        
-
+async def make_square(msg):
+    '''not checking input'''
+    image = Image.open(io.BytesIO(await msg.download_media(bytes)))
+    width, height = image.size
+    # Calculate the upper left and lower right coordinates for the cropped image
+    left = (width - min(width, height)) // 2
+    upper = (height - min(width, height)) // 2
+    right = left + min(width, height)
+    lower = upper + min(width, height)
+    image = image.crop((left, upper, right, lower))
+    output_bytes = io.BytesIO()
+    image.save(output_bytes, format='JPEG', quality=100)
+    output_bytes.seek(0)
+    return output_bytes
