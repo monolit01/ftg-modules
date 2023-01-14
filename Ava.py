@@ -14,7 +14,7 @@ class AvaMod(loader.Module):
         try: reply.media
         except: return await message.edit("ALO нет медиа/>?")
         await message.edit("Качаем фото")
-        photo = await message.client.download_media(message=reply.photo)
+        photo = await message.client.download_media(message=reply.media)
         up = await message.client.upload_file(photo)
         await message.edit("Ставим аву")
         up = await make_square(reply)
