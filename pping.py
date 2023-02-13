@@ -33,6 +33,7 @@ class PingerMod(loader.Module):
 			self.db.set(self.strings['name'], 'timeout', self.strings['timeout'])
 
 	async def pingcmd(self, message):
+		message = (await utils.answer(message, "<i>пингуем ..</i>"))[0]
 		"""Пингует себя или бота, если указать его юзернейм аргументом"""
 		a = self.db.get(self.strings["name"], "samples")
 		if not isinstance(a, int):
@@ -73,6 +74,7 @@ class PingerMod(loader.Module):
 		""".samples <число> - кол-во попыток пинга
 		.timeout <число> - время ожидания ответа в секундах
 		Установка параметров для пинга"""
+		message = (await utils.answer(message, "<i>устанавливаем ..</i>"))[0]
 		r = utils.get_args(message)
 		if not r or len(r) == 1 or len(r) > 2 or r[0] not in [".samples", ".timeout"]:
 			await message.edit(f'Читай <code>.help {self.strings["name"]}</code>')
@@ -89,7 +91,6 @@ class PingerMod(loader.Module):
 				await message.edit(f'Параметр <code>{r[0]}</code> должен быть целым числом')
 			
 async def pping(message, entity, samples, timeout):
-	await message.edit("<i>пингуем...</i>")
 	ping_msg = []
 	ping_data = []
 	ping_ans = []
