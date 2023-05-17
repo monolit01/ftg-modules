@@ -50,7 +50,7 @@ async def make_square(msg):
     upper = (height - min(width, height)) // 2
     right = left + min(width, height)
     lower = upper + min(width, height)
-    image = image.crop((left, upper, right, lower))
+    image = image.crop((left, upper, right, lower)).convert("RGB")
     output_bytes = io.BytesIO()
     image.save(output_bytes, format='JPEG', quality=100)
     output_bytes.seek(0)
