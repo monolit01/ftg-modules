@@ -14,17 +14,15 @@ class AvaMod(loader.Module):
         try: reply.media
         except: return await message.edit("ALO нет медиа/>?")
         await message.edit("Качаем фото")
-        photo = await message.client.download_media(message=reply.media)
-        up = await message.client.upload_file(photo)
         await message.edit("Ставим аву")
         up = await make_square(reply)
         await message.client(
             functions.photos.UploadProfilePhotoRequest(
-                await message.client.upload_file(up)
+                fallback=False,
+                file=await message.client.upload_file(up),
                 )
             )
         await message.edit("Ава установлена")
-        os.remove(photo)
     async def delavacmd(self, message):
         'Удалить текущую аватарку'
         ava = await message.client.get_profile_photos('me', limit=1)
