@@ -30,7 +30,7 @@ class AudioEditorMod(loader.Module):
         "set_time": "<b>[{}]</b> Specify the time in the format start(ms):end(ms)"
     }
 
-    @loader.owner
+    @loader.support
     async def basscmd(self, m):
         """.bass [level bass'а 2-100 (Default 2)] <reply to audio>
         BassBoost"""
@@ -49,7 +49,7 @@ class AudioEditorMod(loader.Module):
                                                                                np.std(sample_track) / (math.sqrt(2)) - np.mean(sample_track)) * 0.005))) + lvl)
         await go_out(self, m, audio, out, audio.pref, f"{audio.pref} {lvl}lvl")
 
-    @loader.owner
+    @loader.support
     async def fvcmd(self, m):
         """.fv [level 2-100 (Default 25)] <reply to audio>
         Distort"""
@@ -66,7 +66,7 @@ class AudioEditorMod(loader.Module):
         out = audio.audio + lvl
         await go_out(self, m, audio, out, audio.pref, f"{audio.pref} {lvl}lvl")
 
-    @loader.owner
+    @loader.support
     async def echoscmd(self, m):
         """.echos <reply to audio>
             Echo effect"""
@@ -83,7 +83,7 @@ class AudioEditorMod(loader.Module):
             n += 200
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def volupcmd(self, m):
         """.volup <reply to audio>
             VolUp 10dB"""
@@ -93,7 +93,7 @@ class AudioEditorMod(loader.Module):
         out = audio.audio + 10
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def voldwcmd(self, m):
         """.voldw <reply to audio>
             VolDw 10dB"""
@@ -103,7 +103,7 @@ class AudioEditorMod(loader.Module):
         out = audio.audio - 10
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def revscmd(self, m):
         """.revs <reply to audio>
             Reverse audio"""
@@ -113,7 +113,7 @@ class AudioEditorMod(loader.Module):
         out = audio.audio.reverse()
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def repscmd(self, m):
         """.reps <reply to audio>
             Repeat audio 2 times"""
@@ -123,7 +123,7 @@ class AudioEditorMod(loader.Module):
         out = audio.audio * 2
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def slowscmd(self, m):
         """.slows <reply to audio>
             SlowDown 0.5x"""
@@ -135,7 +135,7 @@ class AudioEditorMod(loader.Module):
         out = s2.set_frame_rate(audio.audio.frame_rate)
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref, audio.duration * 2)
 
-    @loader.owner
+    @loader.support
     async def fastscmd(self, m):
         """.fasts <reply to audio>
         SpeedUp 1.5x"""
@@ -148,7 +148,7 @@ class AudioEditorMod(loader.Module):
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref,
                      round(audio.duration / 2))
 
-    @loader.owner
+    @loader.support
     async def rightscmd(self, m):
         """.rights <reply to audio>
             Push sound to right channel"""
@@ -158,7 +158,7 @@ class AudioEditorMod(loader.Module):
         out = effects.pan(audio.audio, +1.0)
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def leftscmd(self, m):
         """.lefts <reply to audio>
             Push sound to left channel"""
@@ -168,7 +168,7 @@ class AudioEditorMod(loader.Module):
         out = effects.pan(audio.audio, -1.0)
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def normscmd(self, m):
         """.norms <reply to audio>
             Normalize sound (from quiet to normal)"""
@@ -178,7 +178,7 @@ class AudioEditorMod(loader.Module):
         out = effects.normalize(audio.audio)
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def tovscmd(self, m):
         """.tovs <reply to audio>
             Convert to voice message"""
