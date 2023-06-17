@@ -189,7 +189,7 @@ class AudioEditorMod(loader.Module):
         audio.voice = True
         await go_out(self, audio.message, audio, audio.audio, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def convscmd(self, m):
         """.convs <reply to audio> [audio_format (ex. `mp3`)]
             Convert audio to some format"""
@@ -201,7 +201,7 @@ class AudioEditorMod(loader.Module):
             return
         await go_out(self, audio.message, audio, audio.audio, audio.pref, f"Converted to {f[0].lower()}", fmt=f[0].lower())
 
-    @loader.owner
+    @loader.support
     async def byrobertscmd(self, m):
         '''.byroberts <reply to audio>
             Add at the end "Directed by Robert B Weide"'''
@@ -213,7 +213,7 @@ class AudioEditorMod(loader.Module):
             +8)
         await go_out(self, audio.message, audio, out, audio.pref, audio.pref)
 
-    @loader.owner
+    @loader.support
     async def cutscmd(self, m):
         """.cuts <start(ms):end(ms)> <reply to audio>
         Cut audio"""
