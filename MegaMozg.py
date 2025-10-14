@@ -57,7 +57,33 @@ class MegaMozgMod(loader.Module):
             return await utils.answer(m, self.strings('status').format(self.strings('pref'), args))
             
         return await utils.answer(m, self.strings('need_arg').format(self.strings('pref')))
-    
+
+
+    async def mozgstatscmd(self, m: types.Message):
+        """Статистика работы модуля"""
+        chats = self.db.get(self._db_name, 'chats', [])
+        chance = self.db.get(self._db_name, 'chance', 0)
+        stats = f"Активно в чатах: {len(chats)}\nШанс ответа: 1 к {chance}"
+        await utils.answer(m, self.strings('pref') + stats)
+
+
+    async def mozglistcmd(self, m: types.Message):
+        """Список чатов с активным модулем"""
+        chats = self.db.get(self._db_name, 'chats', [])
+        if not chats:
+            await utils.answer(m, self.strings('pref') + "Не активно ни в одном чате")
+            return 
+        text = self.strings('pref') + "Активно в чатах:\n"
+        for chat_id in chats:
+            try:
+                chat = await m.client.get_entity(chat_id)
+                title = getattr(chat, 'title', 'Личная переписка')
+                text += f"• {title} (ID: {chat_id})\n"
+            except:
+                text += f"• Неизвестный чат (ID: {chat_id})\n"
+        await utils.answer(m, text)
+
+
     async def watcher(self, m: types.Message):
         if not isinstance(m, types.Message):
             return
@@ -81,3 +107,4 @@ class MegaMozgMod(loader.Module):
         msgs = [x async for x in m.client.iter_messages(m.chat.id, ids=list(range(sid+1, eid+1))) if x and x.reply_to and x.reply_to.reply_to_msg_id == sid]
         msg = random.choice(msgs)
         await m.reply(msg)
+
